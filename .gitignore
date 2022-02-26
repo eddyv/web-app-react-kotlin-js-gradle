@@ -2,3 +2,5 @@
 /.gradle/
 /build/
 /build/js/packages/confexplorer/kotlin/
+.idea/
+/kotlin-js-store
