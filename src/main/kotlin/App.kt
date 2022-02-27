@@ -7,6 +7,7 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.h3
 import react.dom.html.ReactHTML.img
+import react.useState
 
 val unwatchedVideos = listOf(
     Video(1, "Opening Keynote", "Andrey Breslav", "https://youtu.be/PsaFVLr8t4E"),
@@ -21,6 +22,9 @@ val watchedVideos = listOf(
 )
 
 val App = FC<Props> {
+    // state is nullable, a.k.a when a user first comes to the page there is no selected video
+    // useState acts as a delegated property b/c of the `by` keyword.
+    var currentVideo: Video? by useState(null)
     h1 {
         +"Hello, React+Kotlin/JS!"
     }
@@ -30,6 +34,10 @@ val App = FC<Props> {
         }
         VideoList {
             videos = unwatchedVideos
+            selectedVideo = currentVideo
+            onSelectVideo = { video ->
+                currentVideo = if (currentVideo == video) null else video
+            }
         }
 
         h3 {
@@ -37,6 +45,10 @@ val App = FC<Props> {
         }
         VideoList {
             videos = watchedVideos
+            selectedVideo = currentVideo
+            onSelectVideo = { video ->
+                currentVideo = if (currentVideo == video) null else video
+            }
         }
     }
     div {
